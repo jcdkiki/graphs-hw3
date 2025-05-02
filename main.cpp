@@ -36,6 +36,10 @@ Node *getFunction(const std::string &name)
 Node *getValue()
 {
     Token &token = getToken();
+    if (token.id == Token::SUB) {
+        Node *operand = getValue();
+        return new Multiplication(new Number(-1), operand);
+    }
     if (token.id == Token::NUMBER)
         return new Number(std::stod(token.str));
     if (token.id == Token::IDENT) {
@@ -122,8 +126,7 @@ int main(int argc, char **argv)
     Node *diff = tree->differentiate(std::string(argv[1]));
     Node *folded = diff->fold();
     
-    tree->priorityPrint();
-    std::cout << '\n';
+    std::cout << text << '\n';
 
     diff->priorityPrint();
     std::cout << '\n';
