@@ -26,6 +26,9 @@ Node *getFunction(const std::string &name)
     if (name == "cos") {
         return new Cosine(operand);
     }
+    if (name == "ln") {
+        return new Logarithm(operand);
+    }
     // ...
 
     std::cerr << "Error: unknown function " << name << '\n';
